@@ -1,0 +1,25 @@
+package Customer;
+
+import cart.Cart;
+import product.interfaces.Product;
+
+public class Customer {
+    private String name;
+    private double balance;
+    public Customer(String name, double balance) {
+        // Ensure that the balance is positive value
+        if(balance <= 0){
+            throw new IllegalArgumentException("Balance can't be a non-positive value");
+        }
+        this.name = name;
+        this.balance = balance;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+    public double getBalance() {
+        return balance;
+    }
+}
