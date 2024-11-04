@@ -1,8 +1,5 @@
 package Customer;
 
-import cart.Cart;
-import product.interfaces.Product;
-
 public class Customer {
     private String name;
     private double balance;

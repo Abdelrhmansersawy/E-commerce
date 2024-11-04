@@ -1,7 +1,7 @@
 package cart;
 
+import product.Product;
 import product.interfaces.Expirable;
-import product.interfaces.Product;
 import product.interfaces.Shippable;
 
 import java.util.ArrayList;

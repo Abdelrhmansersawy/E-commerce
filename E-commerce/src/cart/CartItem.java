@@ -1,6 +1,6 @@
 package cart;
 
-import product.interfaces.Product;
+import product.Product;
 import product.interfaces.Shippable;
 
 public class CartItem {
