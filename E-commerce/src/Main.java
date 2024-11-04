@@ -23,7 +23,8 @@ public class Main {
         cart.add(scratchCard , 2);
         cart.add(milk , 2);
 
-        Service.printCheckout(customer , cart); // checkout with items in the cart
+        Service.printCheckout(customer , cart); // print the checkout of cart's items
+        Service.paymentOfPurchases(customer, cart); // payment of purchases
         Service.ShippingService(cart.getShippedItems()); // collect all items that need to be shipped and send them to ShippingService
     }
 }

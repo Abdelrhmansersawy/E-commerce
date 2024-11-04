@@ -2,7 +2,6 @@ package product;
 
 import product.interfaces.ExpirableShippable;
 import product.interfaces.Product;
-import product.interfaces.Shippable;
 
 import java.time.LocalDate;
 
@@ -39,12 +38,20 @@ public class ExpiredShippableProduct implements Product, ExpirableShippable {
     }
 
     @Override
+    public void discount(int amount) {
+        if(amount > quantity){
+            throw new IllegalArgumentException("There 's no enough quantity into stock");
+        }
+        this.quantity -= amount;
+    }
+
+    @Override
     public double getPrice() {
         return this.price;
     }
     @Override
     public boolean inStock(int requiredQuantity) {
-        return getQuantity() >= requiredQuantity;
+        return getQuantity() < requiredQuantity;
     }
 
 }

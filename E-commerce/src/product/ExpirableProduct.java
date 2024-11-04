@@ -35,8 +35,17 @@ public class ExpirableProduct implements Product, Expirable {
     }
 
     @Override
+    public void discount(int amount) {
+        if(amount > quantity){
+            throw new IllegalArgumentException("There 's no enough quantity into stock");
+        }
+        this.quantity -= amount;
+    }
+
+
+    @Override
     public boolean inStock(int requiredQuantity) {
-        return getQuantity() >= requiredQuantity;
+        return getQuantity() < requiredQuantity;
     }
 
     @Override

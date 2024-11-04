@@ -20,7 +20,7 @@ public class Cart {
             throw new IllegalArgumentException("You can't be a non-positive no. of quantity");
         }
         // Ensure that there's enough quantity in stock
-        if(!product.inStock(quantity)){
+        if(product.inStock(quantity)){
             throw new IllegalArgumentException("There 's no enough quantity into stock");
         }
         // Ensure that the product isn't expired
@@ -37,11 +37,11 @@ public class Cart {
     public List<CartItem> getItems() {
         return items;
     }
-    public List<Product> getShippedItems(){
-        List<Product> shippedItems = new ArrayList<>();
+    public List<Shippable> getShippedItems(){
+        List<Shippable> shippedItems = new ArrayList<>();
         for(CartItem item: items){
             if(item.getProduct() instanceof Shippable){
-                shippedItems.add(item.getProduct());
+                shippedItems.add((Shippable) item.getProduct());
             }
         }
         return shippedItems;

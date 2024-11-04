@@ -3,22 +3,17 @@ package service;
 import Customer.Customer;
 import cart.Cart;
 import cart.CartItem;
-import product.interfaces.Product;
 import product.interfaces.Shippable;
 
 import java.util.List;
 
+// Helper class that about a collection of Service
 public class Service {
 
     // Print the checkout (include shipment notice and checkout receipt)
     public static void printCheckout(Customer customer , Cart cart){
-        if(cart.isEmpty()){
-            throw new IllegalArgumentException("The cart can't be empty");
-        }
-
-        if(customer.getBalance() < cart.getTotalAmount()){
-            throw new IllegalArgumentException("The balance 's insufficient");
-        }
+        // Ensure that this cart is valid for this customer
+        VerifyValidityOfPurchases(customer , cart);
 
         System.out.println("** Shipment notice **");
         for(CartItem item : cart.getItems()){
@@ -47,7 +42,35 @@ public class Service {
         System.out.printf("Remaining Balance\t\t%.0f%n", customer.getBalance() - cart.getTotalAmount());
     }
 
-    public static void ShippingService(List<Product> items){
-        //
+    // Payment purchase through (decrease balance and item stock)
+    public static void paymentOfPurchases(Customer customer, Cart cart){
+        VerifyValidityOfPurchases(customer, cart);
+
+        customer.withdraw(cart.getTotalWeight());
+        for(CartItem item: cart.getItems()){
+            item.getProduct().discount(item.getQuantity());
+        }
+
+        System.out.println("** Successfully payment **");
+    }
+    public static void ShippingService(List<Shippable> items){
+        // TODO: Ship the item (Given names and its weight)
+        System.out.println("** The shippable item are ready to ship **");
+    }
+
+    // Verify from the validity of purchases
+    public static void VerifyValidityOfPurchases(Customer customer , Cart cart){
+        if(cart.isEmpty()){
+            throw new IllegalArgumentException("The cart can't be empty");
+        }
+        for(CartItem item : cart.getItems()){
+            if(item.getProduct().inStock(item.getQuantity())){
+                throw new IllegalArgumentException("There's enough quantity into stock");
+            }
+        }
+        if(customer.getBalance() < cart.getTotalAmount()){
+            throw new IllegalArgumentException("The balance 's insufficient");
+        }
+
     }
 }

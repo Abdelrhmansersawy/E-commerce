@@ -22,4 +22,10 @@ public class Customer {
     public double getBalance() {
         return balance;
     }
+    public void withdraw(double amount){
+        if(amount > balance){
+            throw  new IllegalArgumentException("There 's no enough balance to withdraw");
+        }
+        this.balance -= amount;
+    }
 }

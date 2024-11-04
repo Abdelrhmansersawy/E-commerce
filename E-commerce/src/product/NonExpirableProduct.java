@@ -29,6 +29,14 @@ public class NonExpirableProduct implements Product {
     }
     @Override
     public boolean inStock(int requiredQuantity) {
-        return getQuantity() >= requiredQuantity;
+        return getQuantity() < requiredQuantity;
+    }
+
+    @Override
+    public void discount(int amount) {
+        if(amount > quantity){
+            throw new IllegalArgumentException("There 's no enough quantity into stock");
+        }
+        this.quantity -= amount;
     }
 }

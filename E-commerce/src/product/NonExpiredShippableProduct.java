@@ -3,8 +3,6 @@ package product;
 import product.interfaces.Product;
 import product.interfaces.Shippable;
 
-import java.time.LocalDate;
-
 public class NonExpiredShippableProduct implements Product, Shippable {
     private String name;
     private int quantity;
@@ -40,7 +38,14 @@ public class NonExpiredShippableProduct implements Product, Shippable {
 
     @Override
     public boolean inStock(int requiredQuantity) {
-        return getQuantity() >= requiredQuantity;
+        return getQuantity() < requiredQuantity;
     }
 
+    @Override
+    public void discount(int amount) {
+        if(amount > quantity){
+            throw new IllegalArgumentException("There 's no enough quantity into stock");
+        }
+        this.quantity -= amount;
+    }
 }
